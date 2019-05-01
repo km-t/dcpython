@@ -1,0 +1,5 @@
+環境の保存
+conda list --explicit > env_packages.txt
+
+パッケージの一括インストール
+conda install --name [env_name] --file env_packages.txt
