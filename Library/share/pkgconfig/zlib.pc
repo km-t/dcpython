@@ -1,0 +1,13 @@
+prefix=C:/Miniconda3/envs/dcpython/Library
+exec_prefix=C:/Miniconda3/envs/dcpython/Library
+libdir=C:/Miniconda3/envs/dcpython/Library/lib
+sharedlibdir=C:/Miniconda3/envs/dcpython/Library/lib
+includedir=C:/Miniconda3/envs/dcpython/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.11
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
