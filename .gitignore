@@ -1,0 +1,15 @@
+
+*.conf
+*.pdb
+*.exe
+*.dll
+conda-meta/
+DLLs/
+include/
+Lib/
+Library/
+libs/
+Scripts/
+sip/
+tcl/
+Tools/
