@@ -58,3 +58,73 @@
 +defaults::markupsafe-1.1.1-py37he774522_0
 +defaults::werkzeug-0.15.2-py_0
 # update specs: ['flask']
+==> 2019-05-02 12:59:26 <==
+# cmd: C:\Miniconda3\Scripts\conda install tqdm
+# conda version: 4.5.11
++defaults::tqdm-4.31.1-py37_1
+# update specs: ['tqdm']
+==> 2019-05-02 13:08:39 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py uninstall tqdm
+# conda version: 4.6.14
+-defaults::tqdm-4.31.1-py37_1
+# remove specs: ['tqdm']
+==> 2019-05-02 13:08:51 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py install tqdm
+# conda version: 4.6.14
++defaults::tqdm-4.31.1-py37_1
+# update specs: ['tqdm']
+==> 2019-05-02 13:12:55 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py install -c conda-forge tqdm
+# conda version: 4.6.14
+-defaults::ca-certificates-2019.1.23-0
+-defaults::certifi-2019.3.9-py37_0
+-defaults::openssl-1.1.1b-he774522_1
+-defaults::tqdm-4.31.1-py37_1
++conda-forge::ca-certificates-2019.3.9-hecc5488_0
++conda-forge::certifi-2019.3.9-py37_0
++conda-forge::openssl-1.1.1b-hfa6e2cd_2
++conda-forge::tqdm-4.31.1-py_0
+# update specs: ['tqdm']
+==> 2019-05-02 13:14:24 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py uninstall tqdm
+# conda version: 4.6.14
+-conda-forge::ca-certificates-2019.3.9-hecc5488_0
+-conda-forge::certifi-2019.3.9-py37_0
+-conda-forge::openssl-1.1.1b-hfa6e2cd_2
+-conda-forge::tqdm-4.31.1-py_0
++defaults::ca-certificates-2019.1.23-0
++defaults::certifi-2019.3.9-py37_0
++defaults::openssl-1.1.1b-he774522_1
+# remove specs: ['tqdm']
+==> 2019-05-02 13:14:42 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py install -c conda-forge tqdm
+# conda version: 4.6.14
+-defaults::ca-certificates-2019.1.23-0
+-defaults::certifi-2019.3.9-py37_0
+-defaults::openssl-1.1.1b-he774522_1
++conda-forge::ca-certificates-2019.3.9-hecc5488_0
++conda-forge::certifi-2019.3.9-py37_0
++conda-forge::openssl-1.1.1b-hfa6e2cd_2
++conda-forge::tqdm-4.31.1-py_0
+# update specs: ['tqdm']
+==> 2019-05-02 13:15:31 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py uninstall tqdm
+# conda version: 4.6.14
+-conda-forge::ca-certificates-2019.3.9-hecc5488_0
+-conda-forge::certifi-2019.3.9-py37_0
+-conda-forge::openssl-1.1.1b-hfa6e2cd_2
+-conda-forge::tqdm-4.31.1-py_0
++defaults::ca-certificates-2019.1.23-0
++defaults::certifi-2019.3.9-py37_0
++defaults::openssl-1.1.1b-he774522_1
+# remove specs: ['tqdm']
+==> 2019-05-02 13:18:15 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py install pandas
+# conda version: 4.6.14
++defaults::pandas-0.24.2-py37ha925a31_0
+# update specs: ['pandas']
+==> 2019-05-02 13:25:44 <==
+# cmd: C:\Miniconda3\Scripts\conda-script.py install tqdm
+# conda version: 4.6.14
++defaults::tqdm-4.31.1-py37_1
+# update specs: ['tqdm']

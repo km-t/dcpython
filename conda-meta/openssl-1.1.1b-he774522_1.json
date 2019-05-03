@@ -1,5 +1,4 @@
 {
-  "arch": "x86_64",
   "build": "he774522_1",
   "build_number": 1,
   "channel": "https://repo.anaconda.com/pkgs/main/win-64",
@@ -1053,7 +1052,6 @@
     ],
     "paths_version": 1
   },
-  "platform": "win32",
   "requested_spec": "None",
   "size": 5991444,
   "subdir": "win-64",
