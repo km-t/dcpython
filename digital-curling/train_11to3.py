@@ -8,6 +8,7 @@ import sys
 from tqdm import tqdm
 import time
 from chainer import Variable, optimizers, Chain, serializers
+from chainer.training import extensions
 import pandas as pd
 
 
@@ -81,13 +82,19 @@ def test(keyNum):
         print(str(x[i])+"=", t.data[i])
 
 
+batchsize = 100
+n_epoch = 20
+
 df_origin = pd.read_csv('./logs.csv', sep=',')
-df_goodReward = df_origin[df_origin['reward'] > 3]
+df_goodReward = df_origin[abs(df_origin['reward']) > 20]
+print(df_goodReward.head(100))
 df = df_origin.sample(frac=1)
 
 dSize = len(df)
 trainSize = int(dSize/5000)
 testSize = dSize-trainSize
+
+
 df_train = df[:trainSize]
 df_test = df[trainSize+1: dSize]
 
