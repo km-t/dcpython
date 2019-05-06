@@ -1,6 +1,6 @@
-
 *.conf
 *.pdb
+*.pyc
 *.exe
 *.dll
 conda-meta/

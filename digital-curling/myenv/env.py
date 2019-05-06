@@ -16,7 +16,10 @@ def getData(line, keyNum):
             v[i] = float(vec[i+1])
         return v
     else:  # where, angle, power, reward
-        ans = df.iloc[line, keyNum]
+        if keyNum==4:
+            ans=df.iloc[line+1, keyNum]
+        else:
+            ans = df.iloc[line, keyNum]
         return ans
 
 
@@ -28,10 +31,11 @@ class MyEnv(gym.Env):
         high_bound = 1
         self.observation_space = gym.spaces.Box(
             low=low_bound, high=high_bound, shape=self.board.shape, dtype=np.float32)
-        self.time = -1
+        self.time = 0
         self.profit = 0
 
     def step(self, action):
+
         """
         actionに対するrewardを計算してobservationを返す
         doneは終了かどうか
@@ -67,3 +71,6 @@ class MyEnv(gym.Env):
 
     def getAction(self, keyNum):
         return getData(self.time, keyNum)
+    
+    def getRew(self):
+        return getData(self.time, 4)
