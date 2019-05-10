@@ -201,3 +201,8 @@
 +defaults::werkzeug-0.15.2-py_0
 +defaults::yaml-0.1.7-hc54c509_2
 # update specs: ['keras']
+==> 2019-05-10 14:52:05 <==
+# cmd: C:\Users\81802\AppData\Local\Continuum\miniconda3\Scripts\conda-script.py install tk
+# conda version: 4.6.11
++defaults::tk-8.6.8-hfa6e2cd_0
+# update specs: ['tk']
