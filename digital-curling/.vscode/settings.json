@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\81802\\AppData\\Local\\Continuum\\miniconda3\\envs\\dcpython\\python.exe",
+    "python.pythonPath": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.pep8Enabled": false,
     "python.linting.enabled": true
