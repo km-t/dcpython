@@ -53,7 +53,7 @@ def train(x, y):
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.3))
     model.add(Dense(3, activation='relu'))
-    model.compile(loss='mean_absolute_error',
+    model.compile(loss='mean_squared_error',
                   optimizer='Adam',
                   metrics=['accuracy'])
     history = model.fit(x, y,

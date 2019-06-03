@@ -276,3 +276,14 @@
 +defaults::tensorflow-base-1.13.1-gpu_py37h871c8ca_0
 +defaults::tensorflow-gpu-1.13.1-h0d30ee6_0
 # update specs: ['tensorflow-gpu']
+==> 2019-06-03 14:25:58 <==
+# cmd: C:\Users\ahara\AppData\Local\Continuum\miniconda3\Scripts\conda-script.py install flask
+# conda version: 4.6.14
+-defaults::openssl-1.1.1b-he774522_1
++defaults::click-7.0-py37_0
++defaults::flask-1.0.3-py37_0
++defaults::itsdangerous-1.1.0-py37_0
++defaults::jinja2-2.10.1-py37_0
++defaults::markupsafe-1.1.1-py37he774522_0
++defaults::openssl-1.1.1c-he774522_1
+# update specs: ['flask']

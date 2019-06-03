@@ -16,6 +16,7 @@ def culcAccuracy(model, testx, y):
     pre = np.empty((0, 1), dtype=np.float32)
     for x in tqdm(testx):
         x = np.array([x], dtype=np.float32)
+        print(x)
         pp = round(float(model.predict(x)))
         p = np.zeros(1, dtype=np.float32)
         p[0] = pp
@@ -73,8 +74,8 @@ def getData(df):
 def getDF(df_origin):
     trainNum = int(len(df_origin)*trainSize)
     testNum = int(len(df_origin)-trainNum)
-    trainNum *= data_cut
-    testNum *= data_cut
+    trainNum = int(trainNum*data_cut)
+    testNum = int(testNum*data_cut)
     df_origin = df_origin.sample(frac=1)
     df_train = df_origin[:trainNum].sample(frac=1)
     df_test = df_origin[trainNum+1: trainNum+testNum].sample(frac=1)
@@ -126,7 +127,7 @@ def main():
 
 if __name__ == "__main__":
     trainSize = 0.7
-    data_cut = 1
+    data_cut = 0.0001
     batch_size = 2048
     epochs = 500
     df = pd.read_csv('logs.csv', sep=',', header=None, names=(
