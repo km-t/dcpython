@@ -56,6 +56,8 @@ def getVector(board, target, isMine):
     rank = getRank(board, target)
     x = board[target*2]
     y = board[target*2+1]
+    if x+y == 0:
+        return "111111111111111111111111111111111111111111"
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
@@ -162,18 +164,12 @@ def getVector(board, target, isMine):
     return ans
 
 
-def setInputData(Board):
+def convertToFloat(Board):
     Board = Board.split(",")
     board = np.zeros(32, dtype=float)
-    vec = ""
-    for i in range(len(Board)):
+    for i in range(32):
         board[i] = float(Board[i])
-    for i in range(16):
-        vec = getVector(board, i, i % 2)
-    inputData = np.zeros(42, dtype=np.float32)
-    for i in range(42):
-        inputData[i] = vec[i]
-    return np.array([inputData], dtype=np.float32)
+    return board
 
 
 def load_model():
@@ -182,15 +178,53 @@ def load_model():
     graph = tf.get_default_graph()
 
 
+def adjust(pre):
+    def round(x): return (x*2+1)//2
+    pre[0][0] = round(pre[0][0])
+    pre[0][1] = round(pre[0][1])
+    return pre
+
+
+def convertAns(pre):
+    ans = ""
+    ans = str(pre[0][0])+","+str(pre[0][1])+","+str(pre[0][2])+","
+    return ans
+
+
 @app.route('/<Board>', methods=['GET', 'POST'])
-def post(Board):
-    inputData = setInputData(Board)
-    print(inputData)
-    with graph.as_default():
-        predict = model.predict(inputData)
-    return str(predict)
+def hello(Board):
+    answer = ""
+    count = 0
+    if Board != 'favicon.ico':
+        board = convertToFloat(Board)
+        wantNo = []
+        isExist = False
+        for i in range(16):
+            if board[i*2]+board[i*2+1] != 0:
+                wantNo.append(i)
+                isExist = True
+        count = len(wantNo)
+        answer = str(count)+","
+        if isExist:
+            for i in wantNo:
+                vecs = getVector(board, i, i % 2)
+                inputData = np.zeros((0, 42), dtype=np.float32)
+                v = np.zeros(42, dtype=np.float32)
+                for j in range(len(vecs)):
+                    v[j] = float(vecs[j])
+                inputData = np.array([v], dtype=np.float32)
+                with graph.as_default():
+                    pre = model.predict(inputData)
+                    pre = adjust(pre)
+                    ans = convertAns(pre)
+                    ans += str(i)+","
+                    answer += ans
+            answer = answer[:-1]
+        else:
+            answer += "-1,-1,-1,-1"
+    return answer
 
 
 if __name__ == '__main__':
     load_model()
-    app.run(debug=False)
+    app.run(debug=False, port=80)
