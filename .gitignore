@@ -3,6 +3,21 @@
 *.pyc
 *.exe
 *.dll
+*/*.conf
+*/*.pdb
+*/*.pyc
+*/*.exe
+*/*.dll
+*/*/*.conf
+*/*/*.pdb
+*/*/*.pyc
+*/*/*.exe
+*/*/*.dll
+*/*/*/*.conf
+*/*/*/*.pdb
+*/*/*/*.pyc
+*/*/*/*.exe
+*/*/*/*.dll
 conda-meta/
 DLLs/
 include/
@@ -13,4 +28,4 @@ Scripts/
 sip/
 tcl/
 Tools/
-digital-curling/logs.csv
+digital-curling/logs

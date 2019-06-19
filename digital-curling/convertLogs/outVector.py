@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 def main():
     print("out vector")
-    df = pd.read_csv('logs.csv', sep=',', header=None, names=(
+    df = pd.read_csv('../logs/logs.csv', sep=',', header=None, names=(
         'vector', 'where', 'angle', 'power', 'reward'))
 
     vecs = []
@@ -17,6 +17,6 @@ def main():
                 break
         if flag:
             vecs.append(df.iloc[i, 0]+"\n")
-    with open("vectors.csv", 'w') as f:
+    with open("../logs/vectors.csv", 'w') as f:
         for vec in vecs:
             f.write(vec)

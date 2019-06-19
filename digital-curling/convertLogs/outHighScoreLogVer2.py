@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 def getVecs():
-    d = pd.read_csv('vectors.csv', header=None)
+    d = pd.read_csv('../logs/vectorsVer2.csv', header=None)
     vecs = []
     for i in range(len(d)):
         vecs.append(d.iloc[i, 0])
@@ -11,7 +11,7 @@ def getVecs():
 
 
 def initFile():
-    with open("./highScoreLog.csv", 'w') as f:
+    with open("../logs/highScoreLogsVer2.csv", 'w') as f:
         pass
 
 
@@ -23,21 +23,21 @@ def getDF(df, vec):
 
 def writeFile():
     vecs = getVecs()
-    df = pd.read_csv('logs.csv', sep=',', header=None, names=(
+    df = pd.read_csv('../logs/logsVer2.csv', sep=',', header=None, names=(
         'vector', 'where', 'angle', 'power', 'reward'))
     df = df[df['reward'] > 0]
     for vec in tqdm(vecs):
         dff = getDF(df, vec)
-        size = min(5, len(dff))
-        for i in range(size):
+        duplicatedSize = min(5, len(dff))
+        for i in range(duplicatedSize):
             val = ""
             for j in range(5):
-                val = val+str(dff.iloc[i, j])
+                val += str(dff.iloc[i, j])
                 if j < 4:
                     val += ","
                 else:
                     val += "\n"
-            with open("./highScoreLogs.csv", 'a')as f:
+            with open("../logs/highScoreLogsVer2.csv", 'a')as f:
                 f.write(val)
 
 

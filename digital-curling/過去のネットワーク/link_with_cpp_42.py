@@ -44,31 +44,54 @@ def getRank(board, target):
 
 def getVector(board, target, isMine):
     """
-    0~2:rank
-    3~10:x
-    11~22:y
-    23~28:dist
-    29:isMine
-    30,31:isGuarded
-    32~44:angle
+    0~15:rank
+    16~23:x
+    24~35:y
+    36~41:dist
+    42:isMine
+    43~55:angle
     """
     ans = ""
     rank = getRank(board, target)
     x = board[target*2]
     y = board[target*2+1]
     if x+y == 0:
-        return "111111111111111111111111111111111111111111"
+        return "1111111111111111111111111111111111111111111111111111111"
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
     if rank == 0:
-        ans += "100"
+        ans += "1000000000000000"
     elif rank == 1:
-        ans += "010"
+        ans += "0100000000000000"
     elif rank == 2:
-        ans += "001"
+        ans += "0010000000000000"
+    elif rank == 3:
+        ans += "0001000000000000"
+    elif rank == 4:
+        ans += "0000100000000000"
+    elif rank == 5:
+        ans += "0000010000000000"
+    elif rank == 6:
+        ans += "0000001000000000"
+    elif rank == 7:
+        ans += "0000000100000000"
+    elif rank == 8:
+        ans += "0000000010000000"
+    elif rank == 9:
+        ans += "0000000001000000"
+    elif rank == 10:
+        ans += "0000000000100000"
+    elif rank == 11:
+        ans += "0000000000010000"
+    elif rank == 12:
+        ans += "0000000000001000"
+    elif rank == 13:
+        ans += "0000000000000100"
+    elif rank == 14:
+        ans += "0000000000000010"
     else:
-        ans += "000"
+        ans += "0000000000000001"
 
     if x < 2.375-1.83:
         ans += "10000000"
@@ -174,7 +197,7 @@ def convertToFloat(Board):
 
 def load_model():
     global model, graph
-    model = keras.models.load_model('model.h5', compile=False)
+    model = keras.models.load_model('../model.h5', compile=False)
     graph = tf.get_default_graph()
 
 
@@ -195,6 +218,7 @@ def convertAns(pre):
 def hello(Board):
     answer = ""
     count = 0
+    inputSize = 42
     if Board != 'favicon.ico':
         board = convertToFloat(Board)
         wantNo = []
@@ -208,8 +232,8 @@ def hello(Board):
         if isExist:
             for i in wantNo:
                 vecs = getVector(board, i, i % 2)
-                inputData = np.zeros((0, 42), dtype=np.float32)
-                v = np.zeros(42, dtype=np.float32)
+                inputData = np.zeros((0, inputSize), dtype=np.float32)
+                v = np.zeros(inputSize, dtype=np.float32)
                 for j in range(len(vecs)):
                     v[j] = float(vecs[j])
                 inputData = np.array([v], dtype=np.float32)
