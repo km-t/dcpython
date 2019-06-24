@@ -1,4 +1,4 @@
-#!C:/Miniconda3/envs/dcpython\python.exe
+#!C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'numpy==1.16.3','console_scripts','f2py'
 __requires__ = 'numpy==1.16.3'
 import re

@@ -1,7 +1,7 @@
-prefix=C:/Miniconda3/envs/dcpython/Library
-exec_prefix=C:/Miniconda3/envs/dcpython/Library
-libdir=C:/Miniconda3/envs/dcpython/Library/lib
-includedir=C:/Miniconda3/envs/dcpython/Library/include
+prefix=C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/Library
+exec_prefix=C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/Library
+libdir=C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/Library/lib
+includedir=C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/Library/include
 
 Name: Protocol Buffers
 Description: Google's Data Interchange Format

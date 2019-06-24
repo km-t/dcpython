@@ -1,4 +1,5 @@
 {
+  "arch": "x86_64",
   "build": "py37_0",
   "build_number": 0,
   "channel": "https://repo.anaconda.com/pkgs/main/win-64",
@@ -6,7 +7,7 @@
   "depends": [
     "python >=3.7,<3.8.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\certifi-2019.3.9-py37_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\certifi-2019.3.9-py37_0",
   "features": "",
   "files": [
     "Lib/site-packages/certifi-2019.03.09-py3.7.egg-info",
@@ -21,12 +22,12 @@
   "fn": "certifi-2019.3.9-py37_0.tar.bz2",
   "license": "ISC",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\certifi-2019.3.9-py37_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\certifi-2019.3.9-py37_0",
     "type": 1
   },
   "md5": "5807c9c1b64980de9b0d1e9807d1a4af",
   "name": "certifi",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\certifi-2019.3.9-py37_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\certifi-2019.3.9-py37_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -88,7 +89,8 @@
     ],
     "paths_version": 1
   },
-  "requested_spec": "None",
+  "platform": "win32",
+  "requested_spec": "defaults/win-64::certifi==2019.3.9=py37_0",
   "size": 159218,
   "subdir": "win-64",
   "timestamp": 1552318678553,

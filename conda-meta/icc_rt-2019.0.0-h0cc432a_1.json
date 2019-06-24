@@ -5,7 +5,7 @@
   "channel": "https://repo.anaconda.com/pkgs/main/win-64",
   "constrains": [],
   "depends": [],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1",
   "features": "",
   "files": [
     "Library/bin/1033/ifcore_msg.dll",
@@ -26,12 +26,12 @@
   "fn": "icc_rt-2019.0.0-h0cc432a_1.tar.bz2",
   "license": "Intel proprietary",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1",
     "type": 1
   },
   "md5": "ce2949c239b5cd45848a0a7865d30520",
   "name": "icc_rt",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\icc_rt-2019.0.0-h0cc432a_1.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -136,8 +136,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 9900198,
+  "requested_spec": "defaults/win-64::icc_rt==2019.0.0=h0cc432a_1",
   "subdir": "win-64",
   "timestamp": 1545006766605,
   "track_features": "",

@@ -10,7 +10,7 @@
     "six",
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0",
   "features": "",
   "files": [
     "Lib/site-packages/google/protobuf/__init__.py",
@@ -215,12 +215,12 @@
   "license": "BSD 3-Clause",
   "license_family": "BSD",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0",
     "type": 1
   },
   "md5": "81dfbce729bc32a2c2fe9de9a9a46e82",
   "name": "protobuf",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\protobuf-3.7.1-py37h33f27b4_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -1606,8 +1606,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 558628,
+  "requested_spec": "defaults/win-64::protobuf==3.7.1=py37h33f27b4_0",
   "subdir": "win-64",
   "timestamp": 1556566061643,
   "track_features": "",

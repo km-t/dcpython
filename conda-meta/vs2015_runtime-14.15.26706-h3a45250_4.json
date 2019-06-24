@@ -5,7 +5,7 @@
   "channel": "https://repo.anaconda.com/pkgs/main/win-64",
   "constrains": [],
   "depends": [],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4",
   "features": "",
   "files": [
     "Library/bin/api-ms-win-core-console-l1-1-0.dll",
@@ -107,12 +107,12 @@
   ],
   "fn": "vs2015_runtime-14.15.26706-h3a45250_4.tar.bz2",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4",
     "type": 1
   },
   "md5": "850af9220d561dd550056957c981e62e",
   "name": "vs2015_runtime",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\vs2015_runtime-14.15.26706-h3a45250_4.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -839,8 +839,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 2510985,
+  "requested_spec": "defaults/win-64::vs2015_runtime==14.15.26706=h3a45250_4",
   "subdir": "win-64",
   "timestamp": 1556552671141,
   "track_features": "",

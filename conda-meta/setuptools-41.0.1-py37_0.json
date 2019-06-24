@@ -9,7 +9,7 @@
     "python >=3.7,<3.8.0a0",
     "wincertstore >=0.2"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\setuptools-41.0.1-py37_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\setuptools-41.0.1-py37_0",
   "features": "",
   "files": [
     "Lib/site-packages/__pycache__/easy_install.cpython-37.pyc",
@@ -200,12 +200,12 @@
   "license": "MIT",
   "license_family": "MIT",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\setuptools-41.0.1-py37_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\setuptools-41.0.1-py37_0",
     "type": 1
   },
   "md5": "af7f411babddc47623c43e39250e8328",
   "name": "setuptools",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\setuptools-41.0.1-py37_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\setuptools-41.0.1-py37_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -1493,8 +1493,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 696089,
+  "requested_spec": "defaults/win-64::setuptools==41.0.1=py37_0",
   "subdir": "win-64",
   "timestamp": 1556550516460,
   "track_features": "",

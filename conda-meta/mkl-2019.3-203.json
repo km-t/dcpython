@@ -7,7 +7,7 @@
   "depends": [
     "intel-openmp"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\mkl-2019.3-203",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl-2019.3-203",
   "features": "",
   "files": [
     "Library/bin/libimalloc.dll",
@@ -48,12 +48,12 @@
   "license": "proprietary - Intel",
   "license_family": "Proprietary",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\mkl-2019.3-203",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl-2019.3-203",
     "type": 1
   },
   "md5": "621018a685432c994422ca4dd2dc94f3",
   "name": "mkl",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\mkl-2019.3-203.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl-2019.3-203.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -291,8 +291,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 165045935,
+  "requested_spec": "defaults/win-64::mkl==2019.3=203",
   "subdir": "win-64",
   "timestamp": 1552594288680,
   "track_features": "",

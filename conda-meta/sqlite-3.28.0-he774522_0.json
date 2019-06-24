@@ -7,7 +7,7 @@
   "depends": [
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\sqlite-3.28.0-he774522_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\sqlite-3.28.0-he774522_0",
   "features": "",
   "files": [
     "Library/bin/sqlite3.dll",
@@ -18,12 +18,12 @@
   "fn": "sqlite-3.28.0-he774522_0.tar.bz2",
   "license": "Public-Domain (http://www.sqlite.org/copyright.html)",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\sqlite-3.28.0-he774522_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\sqlite-3.28.0-he774522_0",
     "type": 1
   },
   "md5": "08bd6dc305316bf448e33004421313af",
   "name": "sqlite",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\sqlite-3.28.0-he774522_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\sqlite-3.28.0-he774522_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -58,8 +58,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 967570,
+  "requested_spec": "defaults/win-64::sqlite==3.28.0=he774522_0",
   "subdir": "win-64",
   "timestamp": 1555958035588,
   "track_features": "",

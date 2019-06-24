@@ -7,7 +7,7 @@
   "depends": [
     "python >=3.7,<3.8.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\filelock-3.0.10-py37_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\filelock-3.0.10-py37_0",
   "features": "",
   "files": [
     "Lib/site-packages/__pycache__/filelock.cpython-37.pyc",
@@ -23,12 +23,12 @@
   "license": "Public Domain",
   "license_family": "Public-Domain",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\filelock-3.0.10-py37_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\filelock-3.0.10-py37_0",
     "type": 1
   },
   "md5": "04acec28b606e2ae76425c171f1de467",
   "name": "filelock",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\filelock-3.0.10-py37_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\filelock-3.0.10-py37_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -91,8 +91,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 13889,
+  "requested_spec": "defaults/win-64::filelock==3.0.10=py37_0",
   "subdir": "win-64",
   "timestamp": 1541136732622,
   "track_features": "",

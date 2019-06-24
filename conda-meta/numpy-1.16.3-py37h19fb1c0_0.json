@@ -14,25 +14,24 @@
     "python >=3.7,<3.8.0a0",
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0",
   "features": "",
   "files": [],
   "fn": "numpy-1.16.3-py37h19fb1c0_0.tar.bz2",
   "license": "BSD 3-Clause",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0",
     "type": 1
   },
   "md5": "73095248a0aa8b983fd8c3be0e6d3dff",
   "name": "numpy",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-1.16.3-py37h19fb1c0_0.tar.bz2",
   "paths_data": {
     "paths": [],
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 50433,
+  "requested_spec": "defaults/win-64::numpy==1.16.3=py37h19fb1c0_0",
   "subdir": "win-64",
   "timestamp": 1555949742167,
   "track_features": "",

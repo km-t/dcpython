@@ -11,7 +11,7 @@
     "python >=3.7,<3.8.0a0",
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0",
   "features": "",
   "files": [
     "Lib/site-packages/mkl_random-1.0.2-py3.7.egg-info/PKG-INFO",
@@ -36,12 +36,12 @@
   "fn": "mkl_random-1.0.2-py37h343c172_0.tar.bz2",
   "license": "BSD 3-Clause",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0",
     "type": 1
   },
   "md5": "d45af154246685f482763506afd9cea0",
   "name": "mkl_random",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_random-1.0.2-py37h343c172_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -174,8 +174,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 336376,
+  "requested_spec": "defaults/win-64::mkl_random==1.0.2=py37h343c172_0",
   "subdir": "win-64",
   "timestamp": 1544742254418,
   "track_features": "",

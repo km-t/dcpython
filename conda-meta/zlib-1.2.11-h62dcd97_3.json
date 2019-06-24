@@ -7,7 +7,7 @@
   "depends": [
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3",
   "features": "",
   "files": [
     "Library/bin/zlib.dll",
@@ -24,12 +24,12 @@
   "license": "zlib",
   "license_family": "Other",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3",
     "type": 1
   },
   "md5": "6f96fd91475cc78aabf76d2e1a9ed91f",
   "name": "zlib",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\zlib-1.2.11-h62dcd97_3.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -94,15 +94,14 @@
         "path_type": "hardlink",
         "prefix_placeholder": "C:/ci/zlib_1542815121147/_h_env",
         "sha256": "00176449f92f2e193e58a612a7060ebc83a68cc42e648113123e9cb785302164",
-        "sha256_in_prefix": "d7aae443d9b958af8fb7e8511f4e478eadb23b88d0c1205abd8ddfd1c7604b9d",
+        "sha256_in_prefix": "2d57f0564404c5a8cf93655eefbd1c8afce36b7ecf2302fd197e01a3eaf995d8",
         "size_in_bytes": 420
       }
     ],
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 131359,
+  "requested_spec": "defaults/win-64::zlib==1.2.11=h62dcd97_3",
   "subdir": "win-64",
   "timestamp": 1542815182812,
   "track_features": "",

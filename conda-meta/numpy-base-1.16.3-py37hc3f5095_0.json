@@ -3,9 +3,7 @@
   "build": "py37hc3f5095_0",
   "build_number": 0,
   "channel": "https://repo.anaconda.com/pkgs/main/win-64",
-  "constrains": [
-    "numpy 1.16.3 py37h19fb1c0_0"
-  ],
+  "constrains": [],
   "depends": [
     "blas 1.0 mkl",
     "icc_rt >=2019.0.0",
@@ -13,7 +11,7 @@
     "python >=3.7,<3.8.0a0",
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0",
   "features": "",
   "files": [
     "Lib/site-packages/numpy-1.16.3-py3.7.egg-info/PKG-INFO",
@@ -828,12 +826,12 @@
   ],
   "fn": "numpy-base-1.16.3-py37hc3f5095_0.tar.bz2",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0",
     "type": 1
   },
   "md5": "97bab53f65beff0c5b57a36a96bb2378",
   "name": "numpy-base",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\numpy-base-1.16.3-py37hc3f5095_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -891,7 +889,7 @@
         "path_type": "hardlink",
         "prefix_placeholder": "C:/ci/numpy_and_dev_1555949341540/_h_env",
         "sha256": "aa00e05dd4c571e675f9539a627c2483284b314c6170493fcb715e8b1ba74105",
-        "sha256_in_prefix": "31ee6679521dd20ea98dd12e594573e5093caa6ad759bccff3e0a4ffead1b52e",
+        "sha256_in_prefix": "e15041a41c99c7b51bdda5545f1eef431bd74f781541e5a6b36c920722ce77b5",
         "size_in_bytes": 3674
       },
       {
@@ -2370,7 +2368,7 @@
         "path_type": "hardlink",
         "prefix_placeholder": "C:/ci/numpy_and_dev_1555949341540/_h_env",
         "sha256": "aa00e05dd4c571e675f9539a627c2483284b314c6170493fcb715e8b1ba74105",
-        "sha256_in_prefix": "31ee6679521dd20ea98dd12e594573e5093caa6ad759bccff3e0a4ffead1b52e",
+        "sha256_in_prefix": "e15041a41c99c7b51bdda5545f1eef431bd74f781541e5a6b36c920722ce77b5",
         "size_in_bytes": 3674
       },
       {
@@ -3233,7 +3231,7 @@
         "path_type": "hardlink",
         "prefix_placeholder": "C:/ci/numpy_and_dev_1555949341540/_h_env",
         "sha256": "29c8f1f0696b657482483c64b62e31e1df9314cc459044f25070c65c2762c85d",
-        "sha256_in_prefix": "cf8faa8a2c7ca236edf98a02c71611ab68999e2e4a615039d317ec47e77953a2",
+        "sha256_in_prefix": "37a36d2a2fe86c121c448345831fd6a98030b3f0d93863b0872794f87464cd95",
         "size_in_bytes": 191
       },
       {
@@ -6490,7 +6488,7 @@
         "path_type": "hardlink",
         "prefix_placeholder": "C:\\ci\\numpy_and_dev_1555949341540\\_h_env",
         "sha256": "bc50a6ff60ce7c08d4c5d53e6959eea101d52cd82e4852e3a85faba0ee93b7aa",
-        "sha256_in_prefix": "043b74bf24ca420980591650598d3e5e956bfc656fcdb07a051d806366b37287",
+        "sha256_in_prefix": "5c4692f02d66de8a1cd48565d79c159b99886d24124e5a065bff002e1317aa76",
         "size_in_bytes": 420
       },
       {
@@ -6511,8 +6509,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 4316489,
+  "requested_spec": "defaults/win-64::numpy-base==1.16.3=py37hc3f5095_0",
   "subdir": "win-64",
   "timestamp": 1555949704956,
   "track_features": "",

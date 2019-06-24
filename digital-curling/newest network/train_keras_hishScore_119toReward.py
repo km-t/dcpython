@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 def getData(df):
     x = np.empty((0, inputSize), dtype=np.float32)
     y = np.empty((0, 1), dtype=np.float32)
-    for i in range(len(df)):
+    for i in tqdm(range(len(df))):
         vec = str(df.iloc[i, 0])
         v = np.zeros(inputSize, dtype=np.float32)
         for j in range(89):
@@ -43,34 +43,40 @@ def getData(df):
 
 
 def getDF(df_origin):
-    trainNum = int(len(df_origin)*trainSize)
-    testNum = int(len(df_origin)-trainNum)
-    trainNum *= data_cut
-    testNum *= data_cut
     df_origin = df_origin.sample(frac=1)
     df_train = df_origin[:trainNum].sample(frac=1)
-    df_test = df_origin[trainNum+1: trainNum+testNum].sample(frac=1)
-    return df_train, df_test
+    return df_train
 
 
 def train(x, y):
     # ネットワーク定義
     model = Sequential()
     # activations = ['relu', 'elu', 'selu', 'softplus', 'softsign', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear', 'softmax']
-    model.add(Dense(64, input_dim=inputSize, activation='relu'))
+    model.add(Dense(256, input_dim=inputSize, activation='relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
     for _ in range(3):
-        model.add(Dense(64, activation='relu'))
+        model.add(Dense(512, activation='relu'))
         model.add(BatchNormalization())
         model.add(Dropout(0.5))
+
+    model.add(Dense(256, activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+    model.add(Dense(128, activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+    model.add(Dense(32, activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
     model.add(Dense(1, activation='relu'))
-    model.compile(loss='mean_squared_error',
+    model.compile(loss='mean_absolute_error',
                   optimizer='Adam',
                   metrics=['accuracy'])
     history = model.fit(x, y,
                         epochs=epochs,
-                        batch_size=batch_size)
+                        batch_size=batch_size,
+                        validation_split=0.3)
 
     return model, history
 
@@ -88,21 +94,11 @@ def convert30to3(x):
     return [where, angle, power]
 
 
-def showTestData(model, x, y):
-    for i in range(50):
-        inp = np.zeros((0, inputSize), dtype=np.float32)
-        inp = np.array([x[i]], dtype=np.float32)
-        ans = model.predict(inp)
-        print(y[i], ans)
-
-
-def test(model, history, x, y):
-    showTestData(model, x, y)
-    score = model.evaluate(x, y, verbose=0)
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
+def plotScore(history):
     plt.plot(history.history['loss'], label="loss")
-    plt.plot(history.history['categorical_accuracy'], label="acc")
+    plt.plot(history.history['val_loss'], label="val_loss")
+    plt.plot(history.history['acc'], label="acc")
+    plt.plot(history.history['val_acc'], label="val_acc")
     plt.xlabel('Epochs')
     plt.ylabel('')
     plt.legend()
@@ -110,15 +106,12 @@ def test(model, history, x, y):
 
 
 def main():
-    df_train, df_test = getDF(df)
+    df_train = getDF(df)
     print("get train data")
     x_train, y_train = getData(df_train)
-    print("get test data")
-    x_test, y_test = getData(df_test)
     print('strat train')
     model, history = train(x_train, y_train)
-
-    test(model, history, x_test, y_test)
+    plotScore(history)
 
 
 if __name__ == "__main__":
@@ -126,13 +119,12 @@ if __name__ == "__main__":
         'vector', 'where', 'angle', 'power', 'reward'))
     df = df.sample(frac=1)
     df = df.drop_duplicates()
-#    df = df[df['reward'] > 2.2]
     dataSize = len(df)
     inputSize = 119
-    trainSize = 0.9
     data_cut = 1
-    batch_size = 16
-    epochs = (int)((dataSize*trainSize*data_cut)/batch_size)
-    epochs = 10
-    print(len(df))
+    batch_size = 32
+    trainNum = int(dataSize*data_cut)
+    epochs = (int)(trainNum/batch_size)
+    epochs = 20
+    print("all data:{}\ntrain data:{}".format(dataSize, trainNum))
     main()

@@ -11,7 +11,7 @@
     "python >=3.7,<3.8.0a0",
     "vc >=14.1,<15.0a0"
   ],
-  "extracted_package_dir": "C:\\Miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0",
+  "extracted_package_dir": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0",
   "features": "",
   "files": [
     "Lib/site-packages/mkl_fft-1.0.12-py3.7.egg-info/PKG-INFO",
@@ -40,12 +40,12 @@
   "fn": "mkl_fft-1.0.12-py37h14836fe_0.tar.bz2",
   "license": "BSD 3-Clause",
   "link": {
-    "source": "C:\\Miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0",
+    "source": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0",
     "type": 1
   },
   "md5": "879f59b0e6a920a546834d815aa21eda",
   "name": "mkl_fft",
-  "package_tarball_full_path": "C:\\Miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0.tar.bz2",
+  "package_tarball_full_path": "C:\\Users\\ahara\\AppData\\Local\\Continuum\\miniconda3\\pkgs\\mkl_fft-1.0.12-py37h14836fe_0.tar.bz2",
   "paths_data": {
     "paths": [
       {
@@ -206,8 +206,7 @@
     "paths_version": 1
   },
   "platform": "win32",
-  "requested_spec": "None",
-  "size": 139526,
+  "requested_spec": "defaults/win-64::mkl_fft==1.0.12=py37h14836fe_0",
   "subdir": "win-64",
   "timestamp": 1556553858547,
   "track_features": "",
