@@ -1,5 +1,5 @@
 import numpy as np
-from keras import metrics
+from keras import metrics, callbacks
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, BatchNormalization
 from keras.optimizers import rmsprop
@@ -54,10 +54,9 @@ def getOutputData(df, key):
     return y
 
 
-def getDF(df_origin):
-    df_origin = df_origin.sample(frac=1)
-    df_train = df_origin[:trainNum].sample(frac=1)
-    return df_train
+def getDF(df):
+    df = df.sample(frac=1)
+    return df
 
 
 def train(x, y, out_dim):
@@ -82,11 +81,12 @@ def train(x, y, out_dim):
     model.compile(loss='categorical_crossentropy',
                   optimizer='RMSprop',
                   metrics=[metrics.categorical_accuracy])
+    es = callbacks.EarlyStopping(
+        monitor='loss', patience=0, verbose=0, mode='auto')
     history = model.fit(x, y,
                         epochs=epochs,
                         batch_size=batch_size,
-                        validation_split=0.5)
-
+                        validation_split=0.2)
     return model, history
 
 
@@ -128,26 +128,32 @@ def test(model, inp):
     IN = np.array([inD], dtype=np.float32)
     inputData = np.append(inputData, IN, axis=0)
     y = model.predict(inputData)
-    print("input = {}\npredict = {}".format(d, y))
+    ans = np.argmax(y)
+    print("input = {}\npredict = {}\nanswer = {}".format(d, y, ans))
 
 
 def main():
-    df_train = getDF(df)
-    print("get train data")
-    x_train = getInputData(df_train)
-    w_out = getOutputData(df_train, 0)
-    a_out = getOutputData(df_train, 1)
-    p_out = getOutputData(df_train, 2)
+    dfw_train = getDF(dfw)
+    dfa_train = getDF(dfa)
+    dfp_train = getDF(dfp)
+    print("get input data")
+    xw_train = getInputData(dfw_train)
+    xa_train = getInputData(dfa_train)
+    xp_train = getInputData(dfp_train)
+    print("getOutputData")
+    w_out = getOutputData(dfw_train, 0)
+    a_out = getOutputData(dfa_train, 1)
+    p_out = getOutputData(dfp_train, 2)
+    train_data = [xw_train, xa_train, xp_train]
     y_train = [w_out, a_out, p_out]
     y_size = [3, 2, 5]
     print('strat train')
     histories = []
     models = []
     for i in range(len(y_train)):
-        model, history = train(x_train, y_train[i], y_size[i])
+        model, history = train(train_data[i], y_train[i], y_size[i])
         histories.append(history)
         models.append(model)
-
     testData = ["10000000000000000000001000000100000000100000010000000001000000000000000000000000000000000",
                 "00100000000000000000001000000001000000010000100000000001010000000000000000000000000000000",
                 "00100000000000000100000000001000000000100000000000000000000000000000010011000000000000000",
@@ -168,14 +174,20 @@ def main():
 
 
 if __name__ == "__main__":
-    df = pd.read_csv('../logs/highestScoreLogs.csv', sep=',', header=None, names=(
+    dfw = pd.read_csv('../logs/balancedWhereLogs.csv', sep=',', header=None, names=(
         'vector', 'where', 'angle', 'power', 'reward'))
-    df = df.drop_duplicates()
+    dfa = pd.read_csv('../logs/balancedAngleLogs.csv', sep=',', header=None, names=(
+        'vector', 'where', 'angle', 'power', 'reward'))
+    dfp = pd.read_csv('../logs/balancedPowerLogs.csv', sep=',', header=None, names=(
+        'vector', 'where', 'angle', 'power', 'reward'))
+
+    dfw = dfw.drop_duplicates()
+    dfa = dfa.drop_duplicates()
+    dfp = dfp.drop_duplicates()
     inputSize = 89
-    dataSize = len(df)
     data_cut = 1
-    batch_size = 128
-    trainNum = int(dataSize*data_cut)
-    epochs = 50
-    print("all data:{}\ntrain data:{}".format(dataSize, trainNum))
+    batch_size = 32
+    epochs = 200
+    print("where data:{}\nangle data:{}\npower data:{}\n".format(
+        len(dfw), len(dfa), len(dfp)))
     main()

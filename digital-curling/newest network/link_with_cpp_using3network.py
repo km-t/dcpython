@@ -1,3 +1,6 @@
+import tkinter as tk
+import pandas as pd
+from tqdm import tqdm
 import keras
 from flask import Flask, render_template, request, redirect, url_for
 import math
@@ -15,13 +18,13 @@ def isMyGuard(board, target, isMine):
     for i in range(16):
         if i != target:
             if board[target*2] >= board[i*2] and board[target*2] + float(-1) <= board[i*2]:
-                if board[i*2+1] >= board[target*2+1]:
+                if board[i*2+1] >= board[target*2+1] and board[i*2+1] <= board[target*2+1] + stoneR*6:
                     if i % 2 == isMine:
                         return True
                     else:
                         return False
             if board[target*2] >= board[i*2] and board[target*2] + float(1) <= board[i*2]:
-                if board[i*2+1] >= board[target*2+1]:
+                if board[i*2+1] >= board[target*2+1] and board[i*2+1] <= board[target*2+1] + stoneR*6:
                     if i % 2 == isMine:
                         return True
                     else:
@@ -37,10 +40,10 @@ def isGuarded(board, target):
     for i in range(16):
         if i != target:
             if board[target*2] >= board[i*2] and board[target*2] + float(-1) <= board[i*2]:
-                if board[i*2+1] >= board[target*2+1]:
+                if board[i*2+1] >= board[target*2+1] and board[i*2+1] <= board[target*2+1] + stoneR*6:
                     return True
             if board[target*2] >= board[i*2] and board[target*2] + float(1) <= board[i*2]:
-                if board[i*2+1] >= board[target*2+1]:
+                if board[i*2+1] >= board[target*2+1] and board[i*2+1] <= board[target*2+1] + stoneR*6:
                     return True
     return False
 
