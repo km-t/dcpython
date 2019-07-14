@@ -29,3 +29,4 @@ sip/
 tcl/
 Tools/
 digital-curling/logs
+digital-curling/*/*/*.csv

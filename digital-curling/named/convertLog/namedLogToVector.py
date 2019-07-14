@@ -1,15 +1,9 @@
-import tkinter as tk
-import pandas as pd
 from tqdm import tqdm
-import keras
-from flask import Flask, render_template, request, redirect, url_for
-import math
 import numpy as np
-import tensorflow as tf
-from keras import backend as K
-
-app = Flask(__name__)
-
+import pandas as pd
+import math
+import tkinter as tk
+import time
 
 stoneR = 0.145
 
@@ -64,7 +58,7 @@ def canGuard(board, target):
 def isMyFreeze(board, target, isMine):
     for i in range(16):
         if i != target:
-            if getDistBet(board[target*2], board[target*2+1], board[i*2], board[i*2+1]) < stoneR*3:
+            if getDistBet(board[target*2], board[target*2+1], board[i*2], board[i*2+1]) < stoneR*1.5:
                 if board[target*2+1] < board[i*2+1]:
                     if isMine == i % 2:
                         return True
@@ -76,7 +70,7 @@ def isMyFreeze(board, target, isMine):
 def isFreezed(board, target):
     for i in range(16):
         if i != target:
-            if getDistBet(board[target*2], board[target*2+1], board[i*2], board[i*2+1]) < stoneR*3:
+            if getDistBet(board[target*2], board[target*2+1], board[i*2], board[i*2+1]) < stoneR*1.5:
                 if board[target*2+1] < board[i*2+1]:
                     return True
     return False
@@ -92,6 +86,60 @@ def canFreezed(board, target, count):
                     count += 1
                     canFreezed(board, i, count)
     return count
+
+
+def outStone(stone):
+    root = tk.Tk()
+    width = int(4.75*50)
+    height = int(11.28*50)
+    x = 2.375
+    y = 4.88
+    print(width, height)
+    root.geometry("237x564")
+    canvas = tk.Canvas(root, width=width, height=height)
+    canvas.create_oval((2.375-1.83)*50, (4.88-1.83)*50,
+                       (2.375+1.83)*50, (4.88+1.83)*50, fill='blue')
+    canvas.create_oval((2.375-1.22)*50, (4.88-1.22)*50,
+                       (2.375+1.22)*50, (4.88+1.22)*50, fill='white')
+    canvas.create_oval((2.375-0.61)*50, (4.88-0.61)*50,
+                       (2.375+0.61)*50, (4.88+0.61)*50, fill='red')
+    canvas.create_line(2.375*50, 1.22*50, 2.375*50, 11.28*50)
+    canvas.create_line(0, 4.88*50, 4.75*50, 4.88*50)
+    canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
+                       (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="yellow")
+
+    canvas.place(x=0, y=0)
+    root.mainloop()
+
+
+def outBoard(board):
+    root = tk.Tk()
+    width = int(4.75*50)
+    height = int(11.28*50)
+    x = 2.375
+    y = 4.88
+    root.geometry("237x564")
+    canvas = tk.Canvas(root, width=width, height=height)
+    canvas.create_oval((2.375-1.83)*50, (4.88-1.83)*50,
+                       (2.375+1.83)*50, (4.88+1.83)*50, fill='blue')
+    canvas.create_oval((2.375-1.22)*50, (4.88-1.22)*50,
+                       (2.375+1.22)*50, (4.88+1.22)*50, fill='white')
+    canvas.create_oval((2.375-0.61)*50, (4.88-0.61)*50,
+                       (2.375+0.61)*50, (4.88+0.61)*50, fill='red')
+    canvas.create_line(2.375*50, 1.22*50, 2.375*50, 11.28*50)
+    canvas.create_line(0, 4.88*50, 4.75*50, 4.88*50)
+    for i in range(16):
+        stone = [board[i*2], board[i*2+1]]
+        if stone[0]+stone[1] != 0:
+            if i % 2 == 0:
+                canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
+                                   (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="yellow")
+            else:
+                canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
+                                   (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="black")
+
+    canvas.place(x=0, y=0)
+    root.mainloop()
 
 
 def getDist(stone):
@@ -131,38 +179,8 @@ def getVector(board, target, isMine):
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
-    if rank == 0:
-        ans += "1000000000000000"
-    elif rank == 1:
-        ans += "0100000000000000"
-    elif rank == 2:
-        ans += "0010000000000000"
-    elif rank == 3:
-        ans += "0001000000000000"
-    elif rank == 4:
-        ans += "0000100000000000"
-    elif rank == 5:
-        ans += "0000010000000000"
-    elif rank == 6:
-        ans += "0000001000000000"
-    elif rank == 7:
-        ans += "0000000100000000"
-    elif rank == 8:
-        ans += "0000000010000000"
-    elif rank == 9:
-        ans += "0000000001000000"
-    elif rank == 10:
-        ans += "0000000000100000"
-    elif rank == 11:
-        ans += "0000000000010000"
-    elif rank == 12:
-        ans += "0000000000001000"
-    elif rank == 13:
-        ans += "0000000000000100"
-    elif rank == 14:
-        ans += "0000000000000010"
-    else:
-        ans += "0000000000000001"
+    r = "0000000000000000"
+    ans += r[:rank]+"1"+r[rank+1:]
 
     if x < 2.375-1.83:
         ans += "10000000"
@@ -224,6 +242,7 @@ def getVector(board, target, isMine):
         ans += "000001"
     else:
         ans += "000000"
+
     if target % 2 == isMine:
         ans += "1"
     else:
@@ -263,38 +282,9 @@ def getVector(board, target, isMine):
     else:
         ans += "0"
     guardNum = canGuard(board, target)
-    if guardNum == 0:
-        ans += "000000000000000"
-    elif guardNum == 1:
-        ans += "100000000000000"
-    elif guardNum == 2:
-        ans += "010000000000000"
-    elif guardNum == 3:
-        ans += "001000000000000"
-    elif guardNum == 4:
-        ans += "000100000000000"
-    elif guardNum == 5:
-        ans += "000010000000000"
-    elif guardNum == 6:
-        ans += "000001000000000"
-    elif guardNum == 7:
-        ans += "000000100000000"
-    elif guardNum == 8:
-        ans += "000000010000000"
-    elif guardNum == 9:
-        ans += "000000001000000"
-    elif guardNum == 10:
-        ans += "000000000100000"
-    elif guardNum == 11:
-        ans += "000000000010000"
-    elif guardNum == 12:
-        ans += "000000000001000"
-    elif guardNum == 13:
-        ans += "000000000000100"
-    elif guardNum == 14:
-        ans += "000000000000010"
-    else:
-        ans += "000000000000001"
+
+    r = "0000000000000000"
+    ans += r[:guardNum]+"1"+r[guardNum+1:]
 
     if isFreezed(board, target):
         ans += "1"
@@ -305,38 +295,8 @@ def getVector(board, target, isMine):
     else:
         ans += "0"
     freezeNum = canFreezed(board, target, 0)
-    if freezeNum == 0:
-        ans += "000000000000000"
-    elif freezeNum == 1:
-        ans += "100000000000000"
-    elif freezeNum == 2:
-        ans += "010000000000000"
-    elif freezeNum == 3:
-        ans += "001000000000000"
-    elif freezeNum == 4:
-        ans += "000100000000000"
-    elif freezeNum == 5:
-        ans += "000010000000000"
-    elif freezeNum == 6:
-        ans += "000001000000000"
-    elif freezeNum == 7:
-        ans += "000000100000000"
-    elif freezeNum == 8:
-        ans += "000000010000000"
-    elif freezeNum == 9:
-        ans += "000000001000000"
-    elif freezeNum == 10:
-        ans += "000000000100000"
-    elif freezeNum == 11:
-        ans += "000000000010000"
-    elif freezeNum == 12:
-        ans += "000000000001000"
-    elif freezeNum == 13:
-        ans += "000000000000100"
-    elif freezeNum == 14:
-        ans += "000000000000010"
-    else:
-        ans += "000000000000001"
+    r = "0000000000000000"
+    ans += r[:freezeNum]+"1"+r[freezeNum+1:]
 
     return ans
 
@@ -347,7 +307,7 @@ def getRank(board, target):
         stones.append([board[i*2], board[i*2+1]])
     dists = []
     for i in range(16):
-        if stones[i][0]+stones[i][1] == 0.00:
+        if stones[i][0]+stones[i][1] <= 0.00:
             dists.append(99999)
         else:
             dists.append(getDist(stones[i]))
@@ -365,87 +325,111 @@ def getRank(board, target):
             return i
 
 
-def convertToFloat(Board):
-    Board = Board.split(",")
-    board = np.zeros(32, dtype=float)
-    for i in range(32):
-        board[i] = float(Board[i])
-    return board
+def getBoardScore(board, turn):
+    # turn==0: 0,2,4,6,8,10,12,14 is my stone
+    ranks = []
+    for i in range(16):
+        ranks.append(getRank(board, i))
+        # ranks[0]=0番目の石のランク
+    no0Stone = 0
+    for i in range(16):
+        if ranks[i] == 0:
+            no0Stone = i
+            break
+    scoredPlayer = no0Stone % 2
+    score = 0
+    for j in range(8):
+        isGet = False
+        for i in range(8):
+            if board[(2*i+scoredPlayer)*2]+board[(2*i+scoredPlayer)*2+1] == 0:
+                break
+            if ranks[2*i+scoredPlayer] == j:
+                score += 1
+                isGet = True
+        if not(isGet):
+            break
+    if turn != scoredPlayer:
+        score *= -1
+    return score
 
 
-def load_model():
-    global model0, graph0
-    model0 = keras.models.load_model(
-        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/whereModel.h5', compile=False)
-    graph0 = tf.get_default_graph()
-
-    global model1, graph1
-    model1 = keras.models.load_model(
-        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/angleModel.h5', compile=False)
-    graph1 = tf.get_default_graph()
-
-    global model2, graph2
-    model2 = keras.models.load_model(
-        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/powerModel.h5', compile=False)
-    graph2 = tf.get_default_graph()
+def getVectorScore(vec, isMine):
+    weight = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    score = 0
+    for i in range(89):
+        score += weight[i]*int(vec[i])
+    return score
 
 
-def adjust(pre):
-    def round(x): return (x*2+1)//2
-    pre[0][0] = round(pre[0][0])
-    pre[0][1] = round(pre[0][1])
-    return pre
+def getScore(board):
+    vecs = []
+    for i in range(16):
+        if board[i*2]+board[i*2+1] != 0:
+            vec = getVector(board, i, i % 2)
+            vecs.append(vec)
+    score = 0
+    for i in range(len(vecs)):
+        score += getVectorScore(vecs[i], i % 2)*(-1**i)
+    return score
 
 
-def convertAns(pre):
-    ans = ""
-    ans = str(pre[0][0])+","+str(pre[0][1])+","+str(pre[0][2])+","
-    return ans
-
-
-@app.route('/<Board>', methods=['GET', 'POST'])
-def hello(Board):
-    answer = ""
+def getStoneNum(board):
     count = 0
-    inputSize = 89
-    if Board != 'favicon.ico':
-        board = convertToFloat(Board)
-        wantNo = []
-        isExist = False
-        for i in range(16):
-            if board[i*2]+board[i*2+1] != 0:
-                wantNo.append(i)
-                isExist = True
-        count = len(wantNo)
-        answer = str(count)+","
-        if isExist:
-            for i in wantNo:
-                vecs = getVector(board, i, i % 2)
-                inputData = np.zeros((0, inputSize), dtype=np.float32)
-                v = np.zeros(inputSize, dtype=np.float32)
-                for j in range(len(vecs)):
-                    v[j] = float(vecs[j])
-                inputData = np.array([v], dtype=np.float32)
-                answer += str(i)+","
-                with graph0.as_default():
-                    pre = model0.predict(inputData)
-                    pre = np.argmax(pre)
-                    answer += str(pre)+","
-                with graph1.as_default():
-                    pre = model1.predict(inputData)
-                    pre = np.argmax(pre)
-                    answer += str(pre)+","
-                with graph2.as_default():
-                    pre = model2.predict(inputData)
-                    pre = np.argmax(pre)
-                    pData = [3, 5, 7, 12, 16]
-                    answer += str(pData[pre])+","
-            answer = answer[:-1]
-        else:
-            answer += "-1,-1,-1,-1"
-    return answer
+    for i in range(16):
+        if board[2*i]+board[2*i+1] != 0:
+            count += 1
+    return count
 
 
-if __name__ == '__main__':
-    load_model()
-    app.run(debug=False, port=80)
+def main():
+    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogs.csv"
+    with open(file, 'w') as f:
+        f.write("")
+    """
+    preboard(32), ta,sh,w, a, p, nextBoard(32),ta
+    """
+
+    col_names = ['c{0:02d}'.format(i) for i in range(70)]
+    reader = pd.read_csv("./allNamedLogs.csv", chunksize=2,
+                         header=None, names=col_names)
+    fileSize = 9451218
+    time_origin = time.time()
+
+    myTurn = 1
+    counter = 0
+    while counter < fileSize:
+        if counter % 10000 == 0:
+            t1 = time.time()
+            c1 = counter
+        counter += 1
+        df = reader.get_chunk(1)
+        prb = []
+        for i in range(32):
+            prb.append(df.iloc[0, i])
+        ta = df.iloc[0, 32]
+        vec = getVector(prb, ta, myTurn)
+        if vec != "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111":
+            sh = df.iloc[0, 33]
+            w = df.iloc[0, 34]
+            a = df.iloc[0, 35]
+            p = df.iloc[0, 36]
+            afb = []
+            for i in range(32):
+                afb.append(df.iloc[0, 37+i])
+            score = getScore(afb)-getScore(prb)
+            score += getBoardScore(afb, myTurn) - \
+                getBoardScore(prb, myTurn)
+            ans = str(vec)+","+str(w)+","+str(a) + ","+str(p) + \
+                ","+str(score)+","+str(sh)+"\n"
+            with open(file, 'a') as f:
+                f.write(ans)
+        if counter % 10000 == 9999:
+            t2 = time.time()
+            c2 = counter
+            print(f'{counter/fileSize:.3f}%is end' +
+                  '    time='f'{t2-t1:.3f}'+'/all time ='f'{t2-time_origin: .3f}')
+
+    df = pd.read_csv(file, header=None)
+    df = df.drop_duplicates()
+    df.to_csv(file, header=False, index=False)

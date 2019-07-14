@@ -1,7 +1,9 @@
 import outBalancedLogsbyAngle as a
 import outBalancedLogsbyPower as p
 import outBalancedLogsbyWhere as w
-file = "../logs/logsVer2Ver2.csv"
+import changeLog as c
+file = "namedLogs.csv"
 a.main(file)
 p.main(file)
 w.main(file)
+c.main(file)
