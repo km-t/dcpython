@@ -403,7 +403,7 @@ def getStoneNum(board):
 
 
 def main():
-    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogsVer2.csv"
+    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogs.csv"
     with open(file, 'w') as f:
         f.write("")
     """
@@ -412,7 +412,7 @@ def main():
 
     df = pd.read_csv("../logs/allLogsVer2NamedShot.csv", header=None)
     for line in tqdm(range(len(df))):
-        for _ in range(3):
+        for _ in range(6):
             turn = random.randint(1, 15)
             prb = []
             for i in range(32):
