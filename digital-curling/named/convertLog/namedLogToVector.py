@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 import math
 import tkinter as tk
-import time
-
+import random
 stoneR = 0.145
 
 
@@ -281,11 +280,12 @@ def getVector(board, target, isMine):
         ans += "1"
     else:
         ans += "0"
+
     guardNum = canGuard(board, target)
-
-    r = "0000000000000000"
-    ans += r[:guardNum]+"1"+r[guardNum+1:]
-
+    r = "000000000000000"
+    if guardNum < 15:
+        ans += r[:guardNum]+"1"+r[guardNum+1:]
+    # 73
     if isFreezed(board, target):
         ans += "1"
     else:
@@ -295,9 +295,9 @@ def getVector(board, target, isMine):
     else:
         ans += "0"
     freezeNum = canFreezed(board, target, 0)
-    r = "0000000000000000"
-    ans += r[:freezeNum]+"1"+r[freezeNum+1:]
-
+    r = "000000000000000"
+    if freezeNum < 15:
+        ans += r[:freezeNum]+"1"+r[freezeNum+1:]
     return ans
 
 
@@ -353,24 +353,44 @@ def getBoardScore(board, turn):
     return score
 
 
-def getVectorScore(vec, isMine):
-    weight = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def getVectorScore(vec,  turn):
+    weight = [
+        [4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -3, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+        [6, 5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 3, 2, 1, 0, 0, 0, 2,
+            2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+    ]
+    if turn <= 9:
+        state = 0
+    else:
+        state = 1
     score = 0
     for i in range(89):
-        score += weight[i]*int(vec[i])
+        score += weight[state][i]*int(vec[i])
     return score
 
 
-def getScore(board):
+def getScore(board, turn):
+    """
+    if target % 2 == isMine:
+        ans += "1"
+    else:
+        ans += "0"
+    if turn%2==0:
+        自分は先手
+    """
     vecs = []
     for i in range(16):
         if board[i*2]+board[i*2+1] != 0:
-            vec = getVector(board, i, i % 2)
+            vec = getVector(board, i, turn % 2)
             vecs.append(vec)
     score = 0
     for i in range(len(vecs)):
-        score += getVectorScore(vecs[i], i % 2)*(-1**i)
+        if vecs[i][42] == "1":
+            isMine = 1
+        else:
+            isMine = -1
+        score += getVectorScore(vecs[i], turn)*isMine
     return score
 
 
@@ -383,53 +403,39 @@ def getStoneNum(board):
 
 
 def main():
-    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogs.csv"
+    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogsVer2.csv"
     with open(file, 'w') as f:
         f.write("")
     """
     preboard(32), ta,sh,w, a, p, nextBoard(32),ta
     """
 
-    col_names = ['c{0:02d}'.format(i) for i in range(70)]
-    reader = pd.read_csv("./allNamedLogs.csv", chunksize=2,
-                         header=None, names=col_names)
-    fileSize = 9451218
-    time_origin = time.time()
-
-    myTurn = 1
-    counter = 0
-    while counter < fileSize:
-        if counter % 10000 == 0:
-            t1 = time.time()
-            c1 = counter
-        counter += 1
-        df = reader.get_chunk(1)
-        prb = []
-        for i in range(32):
-            prb.append(df.iloc[0, i])
-        ta = df.iloc[0, 32]
-        vec = getVector(prb, ta, myTurn)
-        if vec != "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111":
-            sh = df.iloc[0, 33]
-            w = df.iloc[0, 34]
-            a = df.iloc[0, 35]
-            p = df.iloc[0, 36]
-            afb = []
+    df = pd.read_csv("../logs/allLogsVer2NamedShot.csv", header=None)
+    for line in tqdm(range(len(df))):
+        for _ in range(3):
+            turn = random.randint(1, 15)
+            prb = []
             for i in range(32):
-                afb.append(df.iloc[0, 37+i])
-            score = getScore(afb)-getScore(prb)
-            score += getBoardScore(afb, myTurn) - \
-                getBoardScore(prb, myTurn)
-            ans = str(vec)+","+str(w)+","+str(a) + ","+str(p) + \
-                ","+str(score)+","+str(sh)+"\n"
-            with open(file, 'a') as f:
-                f.write(ans)
-        if counter % 10000 == 9999:
-            t2 = time.time()
-            c2 = counter
-            print(f'{counter/fileSize:.3f}%is end' +
-                  '    time='f'{t2-t1:.3f}'+'/all time ='f'{t2-time_origin: .3f}')
+                prb.append(df.iloc[line, i])
+            ta = df.iloc[line, 32]
+            vec = getVector(prb, ta, turn % 2)
+            if vec != "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111":
+                sh = df.iloc[line, 33]
+                w = df.iloc[line, 34]
+                a = df.iloc[line, 35]
+                p = df.iloc[line, 36]
+                afb = []
+                for i in range(32):
+                    afb.append(df.iloc[line, 37+i])
+                score = getScore(afb, turn) - getScore(prb, turn)
+                ans = str(vec)+","+str(w)+","+str(a)+","+str(p)+"," + \
+                    str(sh)+","+str(turn)+","+str(score)+"\n"
+                with open(file, 'a') as f:
+                    f.write(ans)
 
     df = pd.read_csv(file, header=None)
     df = df.drop_duplicates()
     df.to_csv(file, header=False, index=False)
+
+
+main()

@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 def initFile():
-    with open("../logs/balancedWhereLogs.csv", 'w') as f:
+    with open("../logs/log0.csv", 'w') as f:
         pass
 
 
@@ -15,18 +15,17 @@ def getDF(df, where):
 
 def writeFile(file):
     df = pd.read_csv(file, sep=',', header=None, names=(
-        'vector', 'where', 'angle', 'power', 'reward', 'aa'))
-    df = df[df['reward'] > 0]
-    df = df[df['vector'] !=
-            '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111']
+        'vector', 'where', 'angle', 'power', 'shot', 'reward'))
+
+    df = df[df['where'] != -1]
     vecs = []
     wheres = [0, 1, 2]
     for where in wheres:
         df = df[~df['vector'].isin(vecs)]
         dff = getDF(df, where)
         # dff = dff[~dff['vector'].duplicated()]
-        duplicatedSize = min(50000, len(dff))
-        print(50000, len(dff))
+        duplicatedSize = min(40000, len(dff))
+        print(min(40000, len(dff)))
         for i in range(duplicatedSize):
             vecs.append(str(dff.iloc[i, 0]))
             val = ""
@@ -36,7 +35,7 @@ def writeFile(file):
                     val += ","
                 else:
                     val += "\n"
-            with open("../logs/balancedWhereLogs.csv", 'a')as f:
+            with open("../logs/log0.csv", 'a')as f:
                 f.write(val)
 
 

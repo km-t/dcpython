@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 def initFile():
-    with open('../logs/balancedAngleLogs.csv', 'w') as f:
+    with open('../logs/log1.csv', 'w') as f:
         pass
 
 
@@ -15,12 +15,9 @@ def getDF(df, angle):
 
 def writeFile(file):
     df = pd.read_csv(file, sep=',', header=None, names=(
-        'vector', 'where', 'angle', 'power', 'reward', 'aa'))
-    df = df[df['reward'] > 0]
-    df = df[df['vector'] !=
-            '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111']
+        'vector', 'where', 'angle', 'power', 'shot', 'turn', 'reward'))
+    df = df[df['angle'] != -1]
     angles = [0, 1]
-    ddd = df
     vecs = []
     for angle in angles:
         df = df[~df['vector'].isin(vecs)]
@@ -36,7 +33,7 @@ def writeFile(file):
                     val += ","
                 else:
                     val += "\n"
-            with open('../logs/balancedAngleLogs.csv', 'a')as f:
+            with open('../logs/log1.csv', 'a')as f:
                 f.write(val)
 
 

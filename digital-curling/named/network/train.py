@@ -16,7 +16,7 @@ class Train:
     out_dim = None
 
     def getInputData(self):
-        inputSize = 91
+        inputSize = 103
         x = np.empty((0, inputSize), dtype=np.float32)
         for i in tqdm(range(len(self.df))):
             vec = str(self.df.iloc[i, 0])
@@ -59,7 +59,6 @@ class Train:
                 o[ans] = 1
             if self.key == 3:
                 o = np.zeros(8, dtype=np.float32)
-                ans = int(self.df.iloc[i, self.key+2])
                 o[ans] = 1
             OUT = np.array([o], dtype=np.float32)
             y = np.append(y, OUT, axis=0)
@@ -68,7 +67,7 @@ class Train:
     def train(self):
         # ネットワーク定義
         model = Sequential()
-        model.add(Dense(128, input_dim=91, activation='relu'))
+        model.add(Dense(128, input_dim=103, activation='relu'))
         model.add(BatchNormalization())
         model.add(Dropout(0.2))
         for _ in range(3):
@@ -142,7 +141,7 @@ if __name__ == "__main__":
         file = '../logs/log'+str(i)+'.csv'
         print('train by {}'.format(file))
         df = pd.read_csv(file, sep=',', header=None, names=(
-            'vector', 'where', 'angle', 'power', 'reward', 'shot'))
+            'vector', 'where', 'angle', 'power', 'shot', 'reward'))
         df = df.drop_duplicates()
         df = df.sample(frac=1)
         trainer = Train(df, i)

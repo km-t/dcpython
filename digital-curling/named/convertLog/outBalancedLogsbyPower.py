@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 def initFile():
-    with open("../logs/balancedPowerLogs.csv", 'w') as f:
+    with open("../logs/log2.csv", 'w') as f:
         pass
 
 
@@ -15,20 +15,18 @@ def getDF(df, power):
 
 def writeFile(file):
     df = pd.read_csv(file, sep=',', header=None, names=(
-        'vector', 'where', 'angle', 'power', 'reward', 'aa'))
-    df = df[df['reward'] > 0]
-    df = df[df['vector'] !=
-            '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111']
+        'vector', 'where', 'angle', 'power', 'shot',  'reward'))
+    df = df[df['power'] != -1]
     powers = [4, 6, 8, 10, 12]
-    ddd = df
+    #powers = [12, 6, 4, 10, 8]
     vecs = []
     for power in powers:
 
         df = df[~df['vector'].isin(vecs)]
         dff = getDF(df, power)
         # dff = dff[~dff['vector'].duplicated()]
-        duplicatedSize = min(20000, len(dff))
-        print(min(20000, len(dff)))
+        duplicatedSize = min(14900, len(dff))
+        print(min(14900, len(dff)))
         for i in range(duplicatedSize):
             vecs.append(str(dff.iloc[i, 0]))
             val = ""
@@ -38,7 +36,7 @@ def writeFile(file):
                     val += ","
                 else:
                     val += "\n"
-            with open("../logs/balancedPowerLogs.csv", 'a')as f:
+            with open("../logs/log2.csv", 'a')as f:
                 f.write(val)
 
 
@@ -46,6 +44,3 @@ def main(file):
     print("out balanced power score log")
     initFile()
     writeFile(file)
-
-
-main("../logs/namedLogs.csv")

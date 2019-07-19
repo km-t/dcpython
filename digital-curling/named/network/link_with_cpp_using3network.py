@@ -1,4 +1,4 @@
-import tkinter as tk
+import random
 import pandas as pd
 from tqdm import tqdm
 import keras
@@ -9,8 +9,6 @@ import tensorflow as tf
 from keras import backend as K
 
 app = Flask(__name__)
-
-
 stoneR = 0.145
 
 
@@ -131,6 +129,7 @@ def getVector(board, target, isMine):
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
+
     r = "0000000000000000"
     ans += r[:rank]+"1"+r[rank+1:]
 
@@ -194,7 +193,6 @@ def getVector(board, target, isMine):
         ans += "000001"
     else:
         ans += "000000"
-
     if target % 2 == isMine:
         ans += "1"
     else:
@@ -234,10 +232,10 @@ def getVector(board, target, isMine):
     else:
         ans += "0"
     guardNum = canGuard(board, target)
-
-    r = "0000000000000000"
-    ans += r[:guardNum]+"1"+r[guardNum+1:]
-
+    r = "000000000000000"
+    if guardNum < 15:
+        ans += r[:guardNum]+"1"+r[guardNum+1:]
+    # 73
     if isFreezed(board, target):
         ans += "1"
     else:
@@ -247,9 +245,9 @@ def getVector(board, target, isMine):
     else:
         ans += "0"
     freezeNum = canFreezed(board, target, 0)
-    r = "0000000000000000"
-    ans += r[:freezeNum]+"1"+r[freezeNum+1:]
-
+    r = "000000000000000"
+    if freezeNum < 15:
+        ans += r[:freezeNum]+"1"+r[freezeNum+1:]
     return ans
 
 
@@ -305,24 +303,44 @@ def getBoardScore(board, turn):
     return score
 
 
-def getVectorScore(vec, isMine):
-    weight = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def getVectorScore(vec,  turn):
+    weight = [
+        [4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, -3, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+        [6, 5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 3, 2, 1, 0, 0, 0, 2,
+            2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+    ]
+    if turn <= 9:
+        state = 0
+    else:
+        state = 1
     score = 0
     for i in range(89):
-        score += weight[i]*int(vec[i])
+        score += weight[state][i]*int(vec[i])
     return score
 
 
-def getScore(board):
+def getScore(board, turn):
+    """
+    if target % 2 == isMine:
+        ans += "1"
+    else:
+        ans += "0"
+    if turn%2==0:
+        自分は先手
+    """
     vecs = []
     for i in range(16):
         if board[i*2]+board[i*2+1] != 0:
-            vec = getVector(board, i, i % 2)
+            vec = getVector(board, i, turn % 2)
             vecs.append(vec)
     score = 0
     for i in range(len(vecs)):
-        score += getVectorScore(vecs[i], i % 2)*(-1**i)
+        if vecs[i][42] == "1":
+            isMine = 1
+        else:
+            isMine = -1
+        score += getVectorScore(vecs[i], turn)*isMine
     return score
 
 
@@ -336,10 +354,11 @@ def getStoneNum(board):
 
 def convertToFloat(Board):
     Board = Board.split(",")
+    turn = int(Board[0])
     board = np.zeros(32, dtype=float)
     for i in range(32):
-        board[i] = float(Board[i])
-    return board
+        board[i] = float(Board[i+1])
+    return turn, board
 
 
 def load_model():
@@ -377,13 +396,19 @@ def convertAns(pre):
     return ans
 
 
+def getTurn(turn):
+    ans = "00000000000000"
+    ans = ans[:turn]+"1"+ans[turn+1:]
+    return ans
+
+
 @app.route('/<Board>', methods=['GET', 'POST'])
 def hello(Board):
     answer = ""
     count = 0
-    inputSize = 91
+    inputSize = 103
     if Board != 'favicon.ico':
-        board = convertToFloat(Board)
+        turn, board = convertToFloat(Board)
         wantNo = []
         isExist = False
         for i in range(16):
@@ -395,9 +420,12 @@ def hello(Board):
         if isExist:
             for i in wantNo:
                 vecs = getVector(board, i, i % 2)
-                return vecs
+                print(len(vecs))
+                vecs += getTurn(turn)
                 inputData = np.zeros((0, inputSize), dtype=np.float32)
                 v = np.zeros(inputSize, dtype=np.float32)
+                print(len(vecs))
+                exit()
                 for j in range(len(vecs)):
                     v[j] = float(vecs[j])
                 inputData = np.array([v], dtype=np.float32)
@@ -418,7 +446,7 @@ def hello(Board):
                 with graph3.as_default():
                     pre = model3.predict(inputData)
                     pre = np.argmax(pre)
-                    answer += str(pData[pre])+","
+                    answer += str(pre)+","
 
             answer = answer[:-1]
         else:
