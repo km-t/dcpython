@@ -5,7 +5,7 @@ import changeLog as c
 import addTurn as ad
 file = "../logs/namedLogs.csv"
 file2 = "../logs/namedLogsWithTurn.csv"
-ad.main(file)
+# ad.main(file)
 a.main(file2)
 p.main(file2)
 w.main(file2)

@@ -234,7 +234,8 @@ def getVector(board, target, isMine):
     guardNum = canGuard(board, target)
     r = "000000000000000"
     if guardNum < 15:
-        ans += r[:guardNum]+"1"+r[guardNum+1:]
+        r = r[:guardNum]+"1"+r[guardNum+1:]
+    ans += r
     # 73
     if isFreezed(board, target):
         ans += "1"
@@ -247,7 +248,8 @@ def getVector(board, target, isMine):
     freezeNum = canFreezed(board, target, 0)
     r = "000000000000000"
     if freezeNum < 15:
-        ans += r[:freezeNum]+"1"+r[freezeNum+1:]
+        r = r[:freezeNum]+"1"+r[freezeNum+1:]
+    ans += r
     return ans
 
 

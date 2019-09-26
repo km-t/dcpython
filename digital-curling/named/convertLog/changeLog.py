@@ -21,8 +21,8 @@ def writeFile(file):
     for shot in shots:
         df = df[~df['vector'].isin(vecs)]
         dff = getDF(df, shot)
-        duplicatedSize = min(6000, len(dff))
-        print(min(6000, len(dff)))
+        duplicatedSize = min(9681, len(dff))
+        print(min(9681, len(dff)))
         for i in range(duplicatedSize):
             vecs.append(str(dff.iloc[i, 0]))
             val = ""
@@ -39,3 +39,6 @@ def writeFile(file):
 def main(file):
     initFile()
     writeFile(file)
+
+
+main("../logs/namedLogsWithTurn.csv")

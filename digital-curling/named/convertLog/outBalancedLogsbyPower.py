@@ -25,8 +25,8 @@ def writeFile(file):
         df = df[~df['vector'].isin(vecs)]
         dff = getDF(df, power)
         # dff = dff[~dff['vector'].duplicated()]
-        duplicatedSize = min(14900, len(dff))
-        print(min(14900, len(dff)))
+        duplicatedSize = min(20000, len(dff))
+        print(min(20000, len(dff)))
         for i in range(duplicatedSize):
             vecs.append(str(dff.iloc[i, 0]))
             val = ""
@@ -44,3 +44,6 @@ def main(file):
     print("out balanced power score log")
     initFile()
     writeFile(file)
+
+
+main("../logs/namedLogsWithTurn.csv")

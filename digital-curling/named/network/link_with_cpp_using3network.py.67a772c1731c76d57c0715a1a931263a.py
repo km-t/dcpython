@@ -1,9 +1,14 @@
-from tqdm import tqdm
-import numpy as np
-import pandas as pd
-import math
-import tkinter as tk
 import random
+import pandas as pd
+from tqdm import tqdm
+import keras
+from flask import Flask, render_template, request, redirect, url_for
+import math
+import numpy as np
+import tensorflow as tf
+from keras import backend as K
+
+app = Flask(__name__)
 stoneR = 0.145
 
 
@@ -87,60 +92,6 @@ def canFreezed(board, target, count):
     return count
 
 
-def outStone(stone):
-    root = tk.Tk()
-    width = int(4.75*50)
-    height = int(11.28*50)
-    x = 2.375
-    y = 4.88
-    print(width, height)
-    root.geometry("237x564")
-    canvas = tk.Canvas(root, width=width, height=height)
-    canvas.create_oval((2.375-1.83)*50, (4.88-1.83)*50,
-                       (2.375+1.83)*50, (4.88+1.83)*50, fill='blue')
-    canvas.create_oval((2.375-1.22)*50, (4.88-1.22)*50,
-                       (2.375+1.22)*50, (4.88+1.22)*50, fill='white')
-    canvas.create_oval((2.375-0.61)*50, (4.88-0.61)*50,
-                       (2.375+0.61)*50, (4.88+0.61)*50, fill='red')
-    canvas.create_line(2.375*50, 1.22*50, 2.375*50, 11.28*50)
-    canvas.create_line(0, 4.88*50, 4.75*50, 4.88*50)
-    canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
-                       (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="yellow")
-
-    canvas.place(x=0, y=0)
-    root.mainloop()
-
-
-def outBoard(board):
-    root = tk.Tk()
-    width = int(4.75*50)
-    height = int(11.28*50)
-    x = 2.375
-    y = 4.88
-    root.geometry("237x564")
-    canvas = tk.Canvas(root, width=width, height=height)
-    canvas.create_oval((2.375-1.83)*50, (4.88-1.83)*50,
-                       (2.375+1.83)*50, (4.88+1.83)*50, fill='blue')
-    canvas.create_oval((2.375-1.22)*50, (4.88-1.22)*50,
-                       (2.375+1.22)*50, (4.88+1.22)*50, fill='white')
-    canvas.create_oval((2.375-0.61)*50, (4.88-0.61)*50,
-                       (2.375+0.61)*50, (4.88+0.61)*50, fill='red')
-    canvas.create_line(2.375*50, 1.22*50, 2.375*50, 11.28*50)
-    canvas.create_line(0, 4.88*50, 4.75*50, 4.88*50)
-    for i in range(16):
-        stone = [board[i*2], board[i*2+1]]
-        if stone[0]+stone[1] != 0:
-            if i % 2 == 0:
-                canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
-                                   (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="yellow")
-            else:
-                canvas.create_oval((stone[0]-0.145)*50, (stone[1]-0.145)*50,
-                                   (stone[0]+0.145)*50, (stone[1]+0.145)*50, fill="black")
-
-    canvas.place(x=0, y=0)
-    root.mainloop()
-
-
 def getDist(stone):
     ans = math.sqrt((stone[0]-2.375)**2 + (stone[1]-4.88)**2)
     if stone[0]+stone[1] == 0:
@@ -178,6 +129,7 @@ def getVector(board, target, isMine):
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
+
     r = "0000000000000000"
     ans += r[:rank]+"1"+r[rank+1:]
 
@@ -241,7 +193,6 @@ def getVector(board, target, isMine):
         ans += "000001"
     else:
         ans += "000000"
-
     if target % 2 == isMine:
         ans += "1"
     else:
@@ -280,13 +231,11 @@ def getVector(board, target, isMine):
         ans += "1"
     else:
         ans += "0"
-
     guardNum = canGuard(board, target)
-
     r = "000000000000000"
     if guardNum < 15:
-        r = r[:guardNum]+"1"+r[guardNum+1:]
-    ans += r
+        r= r[:guardNum]+"1"+r[guardNum+1:]
+    ans+=r
     # 73
     if isFreezed(board, target):
         ans += "1"
@@ -299,9 +248,8 @@ def getVector(board, target, isMine):
     freezeNum = canFreezed(board, target, 0)
     r = "000000000000000"
     if freezeNum < 15:
-        r = r[:freezeNum]+"1"+r[freezeNum+1:]
-    ans += r
-
+        r= r[:freezeNum]+"1"+r[freezeNum+1:]
+    ans+=r
     return ans
 
 
@@ -406,40 +354,108 @@ def getStoneNum(board):
     return count
 
 
-def main():
-    file = "C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/named/logs/namedLogs.csv"
-    with open(file, 'w') as f:
-        f.write("")
-    """
-    preboard(32), ta,sh,w, a, p, nextBoard(32),ta
-    """
-
-    df = pd.read_csv("../logs/allLogsVer2NamedShot.csv", header=None)
-    for line in tqdm(range(len(df))):
-        for _ in range(6):
-            turn = random.randint(1, 15)
-            prb = []
-            for i in range(32):
-                prb.append(df.iloc[line, i])
-            ta = df.iloc[line, 32]
-            vec = getVector(prb, ta, turn % 2)
-            if vec != "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111":
-                sh = df.iloc[line, 33]
-                w = df.iloc[line, 34]
-                a = df.iloc[line, 35]
-                p = df.iloc[line, 36]
-                afb = []
-                for i in range(32):
-                    afb.append(df.iloc[line, 37+i])
-                score = getScore(afb, turn) - getScore(prb, turn)
-                ans = str(vec)+","+str(w)+","+str(a)+","+str(p)+"," + \
-                    str(sh)+","+str(turn)+","+str(score)+"\n"
-                with open(file, 'a') as f:
-                    f.write(ans)
-
-    df = pd.read_csv(file, header=None)
-    df = df.drop_duplicates()
-    df.to_csv(file, header=False, index=False)
+def convertToFloat(Board):
+    Board = Board.split(",")
+    turn = int(Board[0])
+    board = np.zeros(32, dtype=float)
+    for i in range(32):
+        board[i] = float(Board[i+1])
+    return turn, board
 
 
-main()
+def load_model():
+    global model0, graph0
+    model0 = keras.models.load_model(
+        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/whereModel.h5', compile=False)
+    graph0 = tf.get_default_graph()
+
+    global model1, graph1
+    model1 = keras.models.load_model(
+        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/angleModel.h5', compile=False)
+    graph1 = tf.get_default_graph()
+
+    global model2, graph2
+    model2 = keras.models.load_model(
+        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/powerModel.h5', compile=False)
+    graph2 = tf.get_default_graph()
+
+    global model3, graph3
+    model3 = keras.models.load_model(
+        'C:/Users/ahara/AppData/Local/Continuum/miniconda3/envs/dcpython/digital-curling/shotModel.h5', compile=False)
+    graph3 = tf.get_default_graph()
+
+
+def adjust(pre):
+    def round(x): return (x*2+1)//2
+    pre[0][0] = round(pre[0][0])
+    pre[0][1] = round(pre[0][1])
+    return pre
+
+
+def convertAns(pre):
+    ans = ""
+    ans = str(pre[0][0])+","+str(pre[0][1])+","+str(pre[0][2])+","
+    return ans
+
+
+def getTurn(turn):
+    ans = "00000000000000"
+    ans = ans[:turn]+"1"+ans[turn+1:]
+    return ans
+
+
+@app.route('/<Board>', methods=['GET', 'POST'])
+def hello(Board):
+    answer = ""
+    count = 0
+    inputSize = 103
+    if Board != 'favicon.ico':
+        turn, board = convertToFloat(Board)
+        wantNo = []
+        isExist = False
+        for i in range(16):
+            if board[i*2]+board[i*2+1] != 0:
+                wantNo.append(i)
+                isExist = True
+        count = len(wantNo)
+        answer = str(count)+","
+        if isExist:
+            for i in wantNo:
+                vecs = getVector(board, i, i % 2)
+                print(len(vecs))
+                vecs += getTurn(turn)
+                inputData = np.zeros((0, inputSize), dtype=np.float32)
+                v = np.zeros(inputSize, dtype=np.float32)
+                print(len(vecs))
+                exit()
+                for j in range(len(vecs)):
+                    v[j] = float(vecs[j])
+                inputData = np.array([v], dtype=np.float32)
+                answer += str(i)+","
+                with graph0.as_default():
+                    pre = model0.predict(inputData)
+                    pre = np.argmax(pre)
+                    answer += str(pre)+","
+                with graph1.as_default():
+                    pre = model1.predict(inputData)
+                    pre = np.argmax(pre)
+                    answer += str(pre)+","
+                with graph2.as_default():
+                    pre = model2.predict(inputData)
+                    pre = np.argmax(pre)
+                    pData = [4, 6, 8, 10, 12]
+                    answer += str(pData[pre])+","
+                with graph3.as_default():
+                    pre = model3.predict(inputData)
+                    pre = np.argmax(pre)
+                    answer += str(pre)+","
+
+            answer = answer[:-1]
+        else:
+            answer += "-1,-1,-1,-1,-1"
+    return answer
+
+
+if __name__ == '__main__':
+    load_model()
+    app.run(debug=False, port=80)

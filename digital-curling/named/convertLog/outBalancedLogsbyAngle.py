@@ -15,7 +15,7 @@ def getDF(df, angle):
 
 def writeFile(file):
     df = pd.read_csv(file, sep=',', header=None, names=(
-        'vector', 'where', 'angle', 'power', 'shot', 'turn', 'reward'))
+        'vector', 'where', 'angle', 'power', 'shot', 'reward'))
     df = df[df['angle'] != -1]
     angles = [0, 1]
     vecs = []
@@ -41,3 +41,6 @@ def main(file):
     print("out balanced angle score log")
     initFile()
     writeFile(file)
+
+
+main("../logs/namedLogsWithTurn.csv")
